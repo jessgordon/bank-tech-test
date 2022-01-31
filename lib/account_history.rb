@@ -4,4 +4,8 @@ class Account_History
   def initialize()
     @transactions = []
   end
+
+  def view()
+    'date || credit || debit || balance'
+  end
 end

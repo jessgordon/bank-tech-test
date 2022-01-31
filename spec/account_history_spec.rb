@@ -11,4 +11,10 @@ describe Account_History do
       expect(subject.transactions).to be_empty
     end
   end
+
+  describe '#view()' do
+    it 'returns the clients bank statement with date, credit, debit and balance headings' do
+      expect(subject.view()).to eq('date || credit || debit || balance')
+    end
+  end
 end
