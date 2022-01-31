@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'transaction'
 
 describe Transaction do
-
   let(:transaction) { Transaction.new('14/01/2023', 100.0, 900.0) }
-  let(:transaction_with_ints) { Transaction.new('14/01/2023', 100, 900)}
+  let(:transaction_with_ints) { Transaction.new('14/01/2023', 100, 900) }
 
   describe '#initialization' do
     it 'is an instance of Transaction' do
