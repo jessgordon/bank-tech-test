@@ -3,8 +3,9 @@ require 'transaction'
 describe Transaction do
 
   let(:transaction) { Transaction.new('14/01/2023', 100.0, 900.0) }
+  let(:transaction_with_ints) { Transaction.new('14/01/2023', 100, 900)}
 
-  context '#initialisation' do
+  describe '#initialisation' do
     it 'is an instance of Transaction' do
       expect(transaction).to be_an_instance_of(Transaction)
     end
@@ -24,6 +25,14 @@ describe Transaction do
     it 'stores the account balance after the transaction has been completed' do
       expect(transaction.balance).to be_an_instance_of(Float)
       expect(transaction.balance).to eq(900.0)
+    end
+
+    it 'converts the transaction amount to a float if passed an integer' do
+      expect(transaction_with_ints.amount).to be_an_instance_of(Float)
+    end
+
+    it 'converts the account balance to a float if passed an integer' do
+      expect(transaction_with_ints.balance).to be_an_instance_of(Float)
     end
   end
 end
