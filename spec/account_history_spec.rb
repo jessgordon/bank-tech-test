@@ -44,5 +44,11 @@ describe Account_History do
 
       expect(account_history.view()).to eq("date || credit || debit || balance\n14/01/2023 || 100.00 || || 900.00")
     end
+
+    it 'returns the clients transactions: debit transaction' do
+      account_history.transactions.push(transaction_2)
+
+      expect(account_history.view()).to eq("date || credit || debit || balance\n18/01/2023 || || 250.00 || 650.00")
+    end
   end
 end
