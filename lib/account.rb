@@ -1,4 +1,5 @@
 require 'account_history'
+require 'transaction'
 
 class Account
   attr_reader :balance, :history
@@ -10,5 +11,6 @@ class Account
 
   def deposit(amount)
     @balance += amount
+    @history.add_transaction(Date.today, amount, @balance)
   end
 end

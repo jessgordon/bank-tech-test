@@ -2,7 +2,7 @@ require 'account'
 
 describe Account do
 
-  let(:account_history) { double('account history') }
+  let(:account_history) { double(add_transaction: true) }
   let(:account) { Account.new(account_history) }
 
   describe '#initialization' do
@@ -23,6 +23,11 @@ describe Account do
   describe '#deposit' do
     it 'adds amount passed in as an argument to the current balance' do
       expect { account.deposit(100.0) }.to change { account.balance }.by(100)
+    end
+
+    it 'passes transaction details to the account history to be stored' do
+      expect(account.history).to receive(:add_transaction)
+      account.deposit(100.0)
     end
   end
 end
