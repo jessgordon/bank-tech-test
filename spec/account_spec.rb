@@ -19,4 +19,10 @@ describe Account do
       expect(account.history).to be(account_history)
     end
   end
+
+  describe '#deposit' do
+    it 'adds amount passed in as an argument to the current balance' do
+      expect { account.deposit(100.0) }.to change { account.balance }.by(100)
+    end
+  end
 end
