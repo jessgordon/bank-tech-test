@@ -18,6 +18,6 @@ class Account_History
       end
       statement_line += "#{'%.2f' % transaction.balance}"
     end
-    statement += statement_rows.join("\n")
+    statement += statement_rows.reverse.join("\n")
   end
 end

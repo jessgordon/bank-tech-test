@@ -50,5 +50,12 @@ describe Account_History do
 
       expect(account_history.view()).to eq("date || credit || debit || balance\n18/01/2023 || || 250.00 || 650.00")
     end
+
+    it 'returns the clients transactions in reverse chronological order' do
+      account_history.transactions.push(transaction_1)
+      account_history.transactions.push(transaction_2)
+
+      expect(account_history.view()).to eq("date || credit || debit || balance\n18/01/2023 || || 250.00 || 650.00\n14/01/2023 || 100.00 || || 900.00")
+    end
   end
 end
