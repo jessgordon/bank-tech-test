@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'transaction'
+require_relative 'transaction'
 
 class AccountHistory
   attr_reader :transactions
@@ -21,7 +21,8 @@ class AccountHistory
                         end
       statement_line + ('%.2f' % transaction.balance).to_s
     end
-    statement + statement_rows.reverse.join("\n")
+    puts statement += statement_rows.reverse.join("\n")
+    statement
   end
 
   def add_transaction(date, amount, balance, class_injection = Transaction)

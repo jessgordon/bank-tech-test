@@ -1,5 +1,6 @@
-require 'account_history'
-require 'transaction'
+require_relative 'account_history'
+require_relative 'transaction'
+require 'date'
 
 class Account
   attr_reader :balance, :history
