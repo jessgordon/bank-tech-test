@@ -107,3 +107,6 @@ I would like to be able to view an account statement, in reverse chronological o
 ### Diagramming Class Interactions
 
 ![Class diagram includes classes: Account, Account_History and Transaction](./bank_class_diagram.png)
+
+## Improvements
+- [ ] Consider using BigDecimal to improve arithmetic accuracy
