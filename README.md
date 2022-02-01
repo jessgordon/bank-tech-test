@@ -156,7 +156,12 @@ Transaction
   - stores an individual transaction's date, amount and balance post transaction
   - converts a transaction into a string to be added as a line on the bank statement
 
-I structured my classes in this way to separate live interactions (Account) from the storage of historical data (AccountHistory & Transaction).
+GuardClause
+- responsible for error checks
+  - checks input for withdraw and deposit methods are numbers, above zero and have no more than two decimal points
+  - checks input for withdraw is not more than the funds available within the account
+
+I structured my classes in this way to separate live interactions (Account) from the storage of historical data (AccountHistory & Transaction) and error checking (GuardClause).
 I used a transaction class, rather than a hash for each transaction, as I thought it would be best to have each transaction easily available for methods if this was required in the future.
 
 ## Improvements
