@@ -29,7 +29,7 @@ class Account
   
   def amount_guard_clauses(amount)
     raise "Amount must be a number" unless ((amount.is_a? Float) || (amount.is_a? Integer))
-    raise "Amount cannot be zero" if amount == 0
+    raise "Amount cannot be zero" if amount.zero?
     raise "Amount cannot have more than two decimal points" if decimal_points(amount) > 2
   end
 
@@ -38,9 +38,10 @@ class Account
   end
 
   def enough_funds_guard_clause(amount)
-    if amount > @balance
-      raise "Not enough funds to withdraw #{format('%.2f', amount)}. Current balance #{format('%.2f', @balance)}"
-    end
+    return unless amount > @balance
+    amount = format('%.2f', amount)
+    balance = format('%.2f', @balance)
+    raise "Not enough funds to withdraw #{amount}. Current balance #{balance}"
   end
 
   def add_transaction_to_account_history(amount)
