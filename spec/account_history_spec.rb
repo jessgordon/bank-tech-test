@@ -20,6 +20,8 @@ describe AccountHistory do
     let(:transaction1) { double(date: Date.parse('14/01/2023'), amount: 100.0, balance: 900.0) }
   
     let(:transaction2) { double(date: Date.parse('18/01/2023'), amount: -250.0, balance: 650.0) }
+
+    let(:transaction3) { double(date: Date.parse('18/01/2023'), amount: 0, balance: 900.0) }
     
     it 'returns the clients bank statement with date, credit, debit and balance headings' do
       expect(account_history.view).to eq("date || credit || debit || balance\n")

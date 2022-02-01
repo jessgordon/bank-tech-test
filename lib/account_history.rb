@@ -16,8 +16,6 @@ class AccountHistory
                           "#{format('%.2f', transaction.amount)} || || "
                         elsif transaction.amount.negative?
                           "|| #{format('%.2f', (transaction.amount * -1))} || "
-                        else
-                          '|| || '
                         end
       statement_line + ('%.2f' % transaction.balance).to_s
     end

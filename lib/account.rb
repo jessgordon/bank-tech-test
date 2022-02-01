@@ -11,6 +11,7 @@ class Account
   end
 
   def deposit(amount)
+    raise "Amount must be a number" unless ((amount.is_a? Float) || (amount.is_a? Integer))
     @balance += amount
     @history.add_transaction(Date.today, amount, @balance)
     @balance

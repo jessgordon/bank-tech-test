@@ -30,8 +30,14 @@ describe Account do
       account.deposit(100.0)
     end
 
-    it 'converts the amount to a float if passed an integer' do
-      expect(account.deposit(3)).to be_an_instance_of(Float)
+    context 'edge cases' do
+      it 'converts the amount to a float if passed an integer' do
+        expect(account.deposit(3)).to be_an_instance_of(Float)
+      end
+      
+      it 'throws an error if amount is not an int or float' do
+        expect { account.deposit('three') }.to raise_error "Amount must be a number"       
+      end
     end
   end
 
