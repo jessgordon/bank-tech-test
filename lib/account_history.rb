@@ -27,21 +27,22 @@ class AccountHistory
 
   def array_of_statement_rows
     @transactions.map do |transaction|
-      date(transaction) + credit_debit(transaction) + balance(transaction)
+      "#{date(transaction)} || #{credit(transaction)} || #{debit(transaction)} || #{balance(transaction)}"
     end
   end
 
   def date(transaction)
     date = transaction.date.strftime('%d/%m/%Y')
-    "#{date} || "
   end
 
-  def credit_debit(transaction)
-    if transaction.amount.positive?
-      "#{format_currency(transaction.amount)} || || "
-    elsif transaction.amount.negative?
-      "|| #{format_currency(transaction.amount * -1)} || "
-    end
+  def credit(transaction)
+    return unless transaction.amount.positive?
+    format_currency(transaction.amount)
+  end
+
+  def debit(transaction)
+    return unless transaction.amount.negative?
+    format_currency(transaction.amount * -1)
   end
 
   def balance(transaction)

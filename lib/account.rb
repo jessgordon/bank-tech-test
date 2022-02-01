@@ -40,10 +40,10 @@ class Account
   def enough_funds_guard_clause(amount)
     return unless amount > @balance
     raise "Not enough funds to withdraw #{
-                                          format_currency(amount)
-                                        } - current balance #{
-                                          format_currency(balance)
-                                        }"
+                      format_currency(amount)
+                    } - current balance #{
+                      format_currency(balance)
+                    }"
   end
   
   def update_balance(amount)
