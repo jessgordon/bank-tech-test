@@ -6,7 +6,7 @@ describe Transaction do
   let(:transaction) { Transaction.new('14/01/2023', 100.0, 900.0) }
   let(:transaction_with_ints) { Transaction.new('14/01/2023', 100, 900) }
 
-  describe '#initialization' do
+  describe '#initialize(date, amount, balance)' do
     it 'is an instance of Transaction' do
       expect(transaction).to be_an_instance_of(Transaction)
     end

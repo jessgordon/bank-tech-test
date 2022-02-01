@@ -5,7 +5,7 @@ describe Account do
   let(:account_history) { double(add_transaction: true) }
   let(:account) { Account.new(account_history) }
 
-  describe '#initialization' do
+  describe '#initialize(history = AccountHistory.new)' do
     it 'is an instance of Account' do
       expect(account).to be_an_instance_of(Account)
     end
@@ -20,14 +20,18 @@ describe Account do
     end
   end
 
-  describe '#deposit' do
-    it 'adds amount passed in as an argument to the current balance' do
+  describe '#deposit(amount)' do
+    it 'adds amount to the current balance' do
       expect { account.deposit(100.0) }.to change { account.balance }.by(100)
     end
-
+    
     it 'passes transaction details to the account history to be stored' do
       expect(account.history).to receive(:add_transaction)
       account.deposit(100.0)
+    end
+
+    it 'converts the amount to a float if passed an integer' do
+      expect(account.deposit(3)).to be_an_instance_of(Float)
     end
   end
 end

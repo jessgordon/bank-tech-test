@@ -5,7 +5,7 @@ require 'account_history'
 describe AccountHistory do
   let(:account_history) { AccountHistory.new }
 
-  describe '#initialization' do
+  describe '#initialize' do
     it 'is an instance of AccountHistory' do
       expect(account_history).to be_an_instance_of(AccountHistory)
     end
@@ -45,7 +45,7 @@ describe AccountHistory do
     end
   end
 
-  describe '#add_transaction' do
+  describe '#add_transaction(date, amount, balance, class_injection = Transaction)' do
     let(:transaction_class) { double('Transaction Class', new: 'transaction instance') } 
 
     it 'initializes an instance of Transaction' do

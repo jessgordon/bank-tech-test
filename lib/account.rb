@@ -12,5 +12,6 @@ class Account
   def deposit(amount)
     @balance += amount
     @history.add_transaction(Date.today, amount, @balance)
+    @balance
   end
 end
