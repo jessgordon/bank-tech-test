@@ -25,6 +25,6 @@ class AccountHistory
   end
 
   def add_transaction(date, amount, balance, class_injection = Transaction)
-    class_injection.new(date, amount, balance)
+    @transactions.push(class_injection.new(date, amount, balance))
   end
 end

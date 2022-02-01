@@ -46,11 +46,17 @@ describe AccountHistory do
   end
 
   describe '#add_transaction' do
-    let(:transaction_class) { double('Transaction Class') } 
+    let(:transaction_class) { double('Transaction Class', new: 'transaction instance') } 
 
     it 'initializes an instance of Transaction' do
       expect(transaction_class).to receive(:new)
       account_history.add_transaction(Date.parse('14/01/2023'), 100.0, 100.0, transaction_class)
+    end
+
+    it 'adds the Transaction instance to the transactions array' do
+      transactions_arr = account_history.add_transaction(Date.parse('14/01/2023'), 100.0, 100.0, transaction_class)
+      expect(transactions_arr).to be_an_instance_of(Array)
+      expect(transactions_arr).to include('transaction instance')
     end
   end
 end
