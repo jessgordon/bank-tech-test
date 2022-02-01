@@ -33,9 +33,5 @@ describe Account do
     it 'converts the amount to a float if passed an integer' do
       expect(account.deposit(3)).to be_an_instance_of(Float)
     end
-
-    it 'converts the amount to a float if passed a string' do
-      expect(account.deposit('3')).to be_an_instance_of(Float)
-    end
   end
 end
