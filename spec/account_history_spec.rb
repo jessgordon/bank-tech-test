@@ -15,12 +15,12 @@ describe AccountHistory do
       expect(account_history.transactions).to be_empty
     end
   end
-
+  
   describe '#view' do
     let(:transaction1) { double(date: Date.parse('14/01/2023'), amount: 100.0, balance: 900.0) }
-
+  
     let(:transaction2) { double(date: Date.parse('18/01/2023'), amount: -250.0, balance: 650.0) }
-
+    
     it 'returns the clients bank statement with date, credit, debit and balance headings' do
       expect(account_history.view).to eq("date || credit || debit || balance\n")
     end
@@ -42,6 +42,15 @@ describe AccountHistory do
       account_history.transactions.push(transaction2)
 
       expect(account_history.view).to eq("date || credit || debit || balance\n18/01/2023 || || 250.00 || 650.00\n14/01/2023 || 100.00 || || 900.00")
+    end
+  end
+
+  describe '#add_transaction' do
+    let(:transaction_class) { double('Transaction Class') } 
+
+    it 'initializes an instance of Transaction' do
+      expect(transaction_class).to receive(:new)
+      account_history.add_transaction(Date.parse('14/01/2023'), 100.0, 100.0, transaction_class)
     end
   end
 end
