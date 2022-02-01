@@ -13,13 +13,13 @@ class Account
   def deposit(amount)
     amount_guard_clauses(amount)
     @balance += amount
-    @history.add_transaction(Date.today, amount, @balance)
+    add_transaction_to_account_history(amount)
     @balance
   end
   
   def withdraw(amount)
     @balance -= amount
-    @history.add_transaction(Date.today, -amount, @balance)
+    add_transaction_to_account_history(-amount)
     @balance
   end
   
@@ -33,5 +33,9 @@ class Account
 
   def decimal_points(amount)
     amount.to_f.to_s.split(".").last.length
+  end
+
+  def add_transaction_to_account_history(amount)
+    @history.add_transaction(Date.today, amount, @balance)
   end
 end
