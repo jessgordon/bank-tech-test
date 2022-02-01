@@ -42,6 +42,10 @@ describe Account do
       it 'throws an error if amount is zero' do
         expect { account.deposit(0) }.to raise_error "Amount cannot be zero"       
       end
+
+      it 'throws an error if amount has more than two decimal points' do
+        expect { account.deposit(0.999) }.to raise_error "Amount cannot have more than two decimal points"       
+      end
     end
   end
 
