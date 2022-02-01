@@ -2,6 +2,8 @@
 
 User can create a bank account, deposit and withdraw money, and view their statement using IRB.
 
+This program was developed using Ruby.
+
 ## Getting Started
 
 ### Installation
@@ -51,9 +53,13 @@ User can create a bank account, deposit and withdraw money, and view their state
   01/02/2022 || 100.00 || || 100.00
   ```
 
+Screenshot from IRB:
+
+![IRB Screenshot](./irb_screenshot.png)
+
 ### Testing
 
-Tests are written using rspec, and can be found in the spec folder.
+Tests are written using RSpec, and can be found in the spec folder.
 
 - Run all rspec tests
   ```sh
@@ -90,6 +96,31 @@ date || credit || debit || balance
 
 ## Planning
 
+### Approach
+
+- Write user stories to conceptualize required functions
+- Diagram class interactions
+  - These can be amended throughout the development of this program
+  - Add notes on classes as ideas/ improvements pop up
+- Decide the order of class development for TDD (loose order, can switch back and forth as I improve the original class interactions and/or responsibilities)
+- TDD one class at a time >> one method at a time >> one aspect of a method at a time (again, loosely)
+  - Red
+  - Green
+  - Refactor (including running rubocop)
+- Feature test in IRB regularly
+- Once all unit tests passing, write a feature test to ensure classes interact as expected
+- Consider edge cases
+  - Use IRB as an aid to consider edge cases
+  - Write tests for edge cases and ensure they pass
+- Refactor when all tests passing
+  - DRY code
+  - SRP principles
+  - Readability
+  - look out for magic numbers
+- Ensure all tests are still passing
+- Complete self assessment forms and make improvements from these prompts
+- Submit for coach review
+
 ### User Stories
 
 As a client\
@@ -106,7 +137,26 @@ I would like to be able to view an account statement, in reverse chronological o
 
 ### Diagramming Class Interactions
 
-![Class diagram includes classes: Account, Account_History and Transaction](./bank_class_diagram.png)
+![Class diagram includes classes: Account, AccountHistory and Transaction](./bank_class_diagram.png)
+
+Account
+- responsible for all live interactions
+  - stores current balance and an instance of AccountHistory
+  - deposit money function
+  - withdraw money function
+
+AccountHistory
+- responsible for storing historical transactions
+  - stores an array of Transaction instances
+  - view bank statement function
+  - initialises instances of Transaction and pushes them into the transactions array
+
+Transaction
+- responsible for storing individual transactions
+  - stores an individual transaction's date, amount and balance post transaction
+
+I structured my classes in this way to separate live interactions (Account) from the storage of historical data (AccountHistory & Transaction).
+I used a transaction class, rather than a hash for each transaction, as I thought it would be best to have each transaction easily available for methods if this was required in the future.
 
 ## Improvements
 - [ ] Consider using BigDecimal to improve arithmetic accuracy

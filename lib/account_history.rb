@@ -12,7 +12,7 @@ class AccountHistory
   end
 
   def view
-    puts STATEMENT_HEADINGS + array_of_statement_rows.reverse.join("\n")
+    puts STATEMENT_HEADINGS + statement_rows
   end
 
   def add_transaction(date, amount, balance, class_injection = Transaction)
@@ -20,6 +20,10 @@ class AccountHistory
   end
 
   private
+
+  def statement_rows
+    array_of_statement_rows.reverse.join("\n")
+  end
 
   def array_of_statement_rows
     @transactions.map do |transaction|
