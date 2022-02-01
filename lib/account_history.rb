@@ -4,12 +4,15 @@ require_relative 'transaction'
 class AccountHistory
   attr_reader :transactions
 
+  DEFAULT_DECIMAL_POINTS = 2
+  STATEMENT_HEADINGS = "date || credit || debit || balance\n"
+
   def initialize
     @transactions = []
   end
 
   def view
-    puts headings + array_of_statement_rows.reverse.join("\n")
+    puts STATEMENT_HEADINGS + array_of_statement_rows.reverse.join("\n")
   end
 
   def add_transaction(date, amount, balance, class_injection = Transaction)
@@ -17,10 +20,6 @@ class AccountHistory
   end
 
   private
-
-  def headings
-    "date || credit || debit || balance\n"
-  end
 
   def array_of_statement_rows
     @transactions.map do |transaction|
@@ -46,6 +45,6 @@ class AccountHistory
   end
 
   def format_currency(float)
-    format('%.2f', float)
+    format("%.#{DEFAULT_DECIMAL_POINTS}f", float)
   end
 end

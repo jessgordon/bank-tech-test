@@ -5,8 +5,11 @@ require 'date'
 class Account
   attr_reader :balance, :history
 
+  DEFAULT_BALANCE = 0.0
+  DEFAULT_DECIMAL_POINTS = 2
+
   def initialize(history = AccountHistory.new)
-    @balance = 0.0
+    @balance = DEFAULT_BALANCE
     @history = history
   end
 
@@ -30,7 +33,7 @@ class Account
   def amount_guard_clauses(amount)
     raise "Amount must be a number" unless ((amount.is_a? Float) || (amount.is_a? Integer))
     raise "Amount cannot be zero" if amount.zero?
-    raise "Amount cannot have more than two decimal points" if decimal_points(amount) > 2
+    raise "Amount cannot have more than two decimal points" if decimal_points(amount) > DEFAULT_DECIMAL_POINTS
   end
   
   def enough_funds_guard_clause(amount)
@@ -51,6 +54,6 @@ class Account
   end
 
   def format_currency(float)
-    format('%.2f', float)
+    format("%.#{DEFAULT_DECIMAL_POINTS}f", float)
   end
 end
