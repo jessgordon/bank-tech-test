@@ -40,5 +40,10 @@ describe Account do
       account.deposit(500.0)
       expect { account.withdraw(100.0) }.to change { account.balance }.by(-100)
     end
+
+    it 'passes transaction details to the account history to be stored' do
+      expect(account.history).to receive(:add_transaction)
+      account.withdraw(100.0)
+    end
   end
 end
