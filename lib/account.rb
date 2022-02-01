@@ -19,6 +19,7 @@ class Account
   
   def withdraw(amount)
     amount_guard_clauses(amount)
+    enough_funds_guard_clause(amount)
     @balance -= amount
     add_transaction_to_account_history(-amount)
     @balance
@@ -34,6 +35,12 @@ class Account
 
   def decimal_points(amount)
     amount.to_f.to_s.split(".").last.length
+  end
+
+  def enough_funds_guard_clause(amount)
+    if amount > @balance
+      raise "Not enough funds to withdraw #{format('%.2f', amount)}. Current balance #{format('%.2f', @balance)}"
+    end
   end
 
   def add_transaction_to_account_history(amount)

@@ -79,6 +79,10 @@ describe Account do
       it 'throws an error if amount has more than two decimal points' do
         expect { account.withdraw(0.999) }.to raise_error "Amount cannot have more than two decimal points"       
       end
+
+      it 'throws an error if not enough funds in the account to withdraw amount requested' do
+        expect { account.withdraw(1000.0) }.to raise_error "Not enough funds to withdraw 1000.00. Current balance 500.00"
+      end
     end
   end
 end
