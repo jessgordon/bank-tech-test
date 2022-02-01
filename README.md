@@ -154,6 +154,7 @@ AccountHistory
 Transaction
 - responsible for storing individual transactions
   - stores an individual transaction's date, amount and balance post transaction
+  - converts a transaction into a string to be added as a line on the bank statement
 
 I structured my classes in this way to separate live interactions (Account) from the storage of historical data (AccountHistory & Transaction).
 I used a transaction class, rather than a hash for each transaction, as I thought it would be best to have each transaction easily available for methods if this was required in the future.

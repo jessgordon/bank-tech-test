@@ -4,7 +4,6 @@ require_relative 'transaction'
 class AccountHistory
   attr_reader :transactions
 
-  DEFAULT_DECIMAL_POINTS = 2
   STATEMENT_HEADINGS = "date || credit || debit || balance\n"
 
   def initialize
@@ -26,30 +25,6 @@ class AccountHistory
   end
 
   def array_of_statement_rows
-    @transactions.map do |transaction|
-      "#{date(transaction)} || #{credit(transaction)} || #{debit(transaction)} || #{balance(transaction)}"
-    end
-  end
-
-  def date(transaction)
-    date = transaction.date.strftime('%d/%m/%Y')
-  end
-
-  def credit(transaction)
-    return unless transaction.amount.positive?
-    format_currency(transaction.amount)
-  end
-
-  def debit(transaction)
-    return unless transaction.amount.negative?
-    format_currency(transaction.amount * -1)
-  end
-
-  def balance(transaction)
-    format_currency(transaction.balance)
-  end
-
-  def format_currency(float)
-    format("%.#{DEFAULT_DECIMAL_POINTS}f", float)
+    @transactions.map { |transaction| transaction.statement_format }
   end
 end

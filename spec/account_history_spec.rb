@@ -17,30 +17,18 @@ describe AccountHistory do
   end
   
   describe '#view' do
-    let(:transaction1) { double(date: Date.parse('14/01/2023'), amount: 100.0, balance: 900.0) }
-    let(:transaction2) { double(date: Date.parse('18/01/2023'), amount: -250.0, balance: 650.0) }
+    let(:transaction1) { double(date: Date.parse('14/01/2023'), amount: 100.0, balance: 900.0, statement_format: 'transaction1 statement line') }
+    let(:transaction2) { double(date: Date.parse('18/01/2023'), amount: -250.0, balance: 650.0, statement_format: 'transaction2 statement line') }
 
     it 'returns the clients bank statement with date, credit, debit and balance headings' do
       expect { account_history.view }.to output(AccountHistory::STATEMENT_HEADINGS).to_stdout
-    end
-
-    it 'returns the clients transactions: credit transaction' do
-      account_history.transactions.push(transaction1)
-
-      expect { account_history.view }.to output("#{AccountHistory::STATEMENT_HEADINGS}14/01/2023 || 100.00 ||  || 900.00\n").to_stdout
-    end
-
-    it 'returns the clients transactions: debit transaction' do
-      account_history.transactions.push(transaction2)
-
-      expect { account_history.view }.to output("#{AccountHistory::STATEMENT_HEADINGS}18/01/2023 ||  || 250.00 || 650.00\n").to_stdout
     end
 
     it 'returns the clients transactions in reverse chronological order' do
       account_history.transactions.push(transaction1)
       account_history.transactions.push(transaction2)
 
-      expect { account_history.view }.to output("#{AccountHistory::STATEMENT_HEADINGS}18/01/2023 ||  || 250.00 || 650.00\n14/01/2023 || 100.00 ||  || 900.00\n").to_stdout
+      expect { account_history.view }.to output("#{AccountHistory::STATEMENT_HEADINGS}transaction2 statement line\ntransaction1 statement line\n").to_stdout
     end
   end
 
