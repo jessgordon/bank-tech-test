@@ -50,8 +50,11 @@ describe Account do
   end
 
   describe '#withdraw(amount)' do
-    it 'subtracts amount from the current balance' do
+    before(:each) do
       account.deposit(500.0)
+    end
+
+    it 'subtracts amount from the current balance' do
       expect { account.withdraw(100.0) }.to change { account.balance }.by(-100)
     end
 
@@ -60,9 +63,22 @@ describe Account do
       account.withdraw(100.0)
     end
 
-    it 'converts the amount to a float if passed an integer' do
-      account.deposit(500.0)
-      expect(account.withdraw(3)).to be_an_instance_of(Float)
+    context 'edge cases' do
+      it 'converts the amount to a float if passed an integer' do
+        expect(account.withdraw(3)).to be_an_instance_of(Float)
+      end
+      
+      it 'throws an error if amount is not an int or float' do
+        expect { account.withdraw('three') }.to raise_error "Amount must be a number"       
+      end
+
+      it 'throws an error if amount is zero' do
+        expect { account.withdraw(0) }.to raise_error "Amount cannot be zero"       
+      end
+
+      it 'throws an error if amount has more than two decimal points' do
+        expect { account.withdraw(0.999) }.to raise_error "Amount cannot have more than two decimal points"       
+      end
     end
   end
 end

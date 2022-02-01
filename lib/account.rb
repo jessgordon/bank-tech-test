@@ -18,6 +18,7 @@ class Account
   end
   
   def withdraw(amount)
+    amount_guard_clauses(amount)
     @balance -= amount
     add_transaction_to_account_history(-amount)
     @balance
