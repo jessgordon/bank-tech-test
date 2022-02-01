@@ -45,5 +45,10 @@ describe Account do
       expect(account.history).to receive(:add_transaction)
       account.withdraw(100.0)
     end
+
+    it 'converts the amount to a float if passed an integer' do
+      account.deposit(500.0)
+      expect(account.withdraw(3)).to be_an_instance_of(Float)
+    end
   end
 end
