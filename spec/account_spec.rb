@@ -34,4 +34,11 @@ describe Account do
       expect(account.deposit(3)).to be_an_instance_of(Float)
     end
   end
+
+  describe '#withdraw(amount)' do
+    it 'subtracts amount from the current balance' do
+      account.deposit(500.0)
+      expect { account.withdraw(100.0) }.to change { account.balance }.by(-100)
+    end
+  end
 end

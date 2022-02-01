@@ -14,4 +14,8 @@ class Account
     @history.add_transaction(Date.today, amount, @balance)
     @balance
   end
+
+  def withdraw(amount)
+    @balance -= amount
+  end
 end
