@@ -38,6 +38,10 @@ describe Account do
       it 'throws an error if amount is not an int or float' do
         expect { account.deposit('three') }.to raise_error "Amount must be a number"       
       end
+
+      it 'throws an error if amount is zero' do
+        expect { account.deposit(0) }.to raise_error "Amount cannot be zero"       
+      end
     end
   end
 
