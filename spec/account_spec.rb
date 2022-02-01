@@ -35,17 +35,11 @@ describe Account do
       it 'converts the amount to a float if passed an integer' do
         expect(account.deposit(3)).to be_an_instance_of(Float)
       end
-      
-      it 'throws an error if amount is not an int or float' do
-        expect { account.deposit('three') }.to raise_error "Amount must be a number"       
-      end
 
-      it 'throws an error if amount is zero' do
-        expect { account.deposit(0) }.to raise_error "Amount cannot be zero"       
-      end
+      it 'calls on the GuardClause class to error check user input' do
+        expect(GuardClause).to receive(:amount)
 
-      it 'throws an error if amount has more than two decimal points' do
-        expect { account.deposit(0.999) }.to raise_error "Amount cannot have more than two decimal points"       
+        account.deposit(100.0)
       end
     end
   end
@@ -69,21 +63,17 @@ describe Account do
       it 'converts the amount to a float if passed an integer' do
         expect(account.withdraw(3)).to be_an_instance_of(Float)
       end
-      
-      it 'throws an error if amount is not an int or float' do
-        expect { account.withdraw('three') }.to raise_error "Amount must be a number"       
+
+      it 'calls on the GuardClause class to error check user input' do
+        expect(GuardClause).to receive(:amount)
+
+        account.withdraw(100.0)
       end
 
-      it 'throws an error if amount is zero' do
-        expect { account.withdraw(0) }.to raise_error "Amount cannot be zero"       
-      end
-
-      it 'throws an error if amount has more than two decimal points' do
-        expect { account.withdraw(0.999) }.to raise_error "Amount cannot have more than two decimal points"       
-      end
-
-      it 'throws an error if there are not enough funds in the account to withdraw amount requested' do
-        expect { account.withdraw(1000.0) }.to raise_error "Not enough funds to withdraw 1000.00 - current balance 500.00"
+      it 'calls on GuardClause to check if there are enough funds in the account to withdraw amount requested' do
+        expect(GuardClause).to receive(:enough_funds)
+        
+        account.withdraw(100.0)
       end
     end
   end
