@@ -27,6 +27,7 @@ describe Account do
     
     it 'passes transaction details to the account history to be stored' do
       expect(account.history).to receive(:add_transaction)
+
       account.deposit(100.0)
     end
 
@@ -60,6 +61,7 @@ describe Account do
 
     it 'passes transaction details to the account history to be stored' do
       expect(account.history).to receive(:add_transaction)
+
       account.withdraw(100.0)
     end
 
@@ -80,8 +82,8 @@ describe Account do
         expect { account.withdraw(0.999) }.to raise_error "Amount cannot have more than two decimal points"       
       end
 
-      it 'throws an error if not enough funds in the account to withdraw amount requested' do
-        expect { account.withdraw(1000.0) }.to raise_error "Not enough funds to withdraw 1000.00. Current balance 500.00"
+      it 'throws an error if there are not enough funds in the account to withdraw amount requested' do
+        expect { account.withdraw(1000.0) }.to raise_error "Not enough funds to withdraw 1000.00 - current balance 500.00"
       end
     end
   end

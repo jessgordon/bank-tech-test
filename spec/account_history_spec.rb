@@ -18,32 +18,29 @@ describe AccountHistory do
   
   describe '#view' do
     let(:transaction1) { double(date: Date.parse('14/01/2023'), amount: 100.0, balance: 900.0) }
-  
     let(:transaction2) { double(date: Date.parse('18/01/2023'), amount: -250.0, balance: 650.0) }
 
-    let(:transaction3) { double(date: Date.parse('18/01/2023'), amount: 0, balance: 900.0) }
-    
     it 'returns the clients bank statement with date, credit, debit and balance headings' do
-      expect(account_history.view).to eq("date || credit || debit || balance\n")
+      expect { account_history.view }.to output("date || credit || debit || balance\n").to_stdout
     end
 
     it 'returns the clients transactions: credit transaction' do
       account_history.transactions.push(transaction1)
 
-      expect(account_history.view).to eq("date || credit || debit || balance\n14/01/2023 || 100.00 || || 900.00")
+      expect { account_history.view }.to output("date || credit || debit || balance\n14/01/2023 || 100.00 || || 900.00\n").to_stdout
     end
 
     it 'returns the clients transactions: debit transaction' do
       account_history.transactions.push(transaction2)
 
-      expect(account_history.view).to eq("date || credit || debit || balance\n18/01/2023 || || 250.00 || 650.00")
+      expect { account_history.view }.to output("date || credit || debit || balance\n18/01/2023 || || 250.00 || 650.00\n").to_stdout
     end
 
     it 'returns the clients transactions in reverse chronological order' do
       account_history.transactions.push(transaction1)
       account_history.transactions.push(transaction2)
 
-      expect(account_history.view).to eq("date || credit || debit || balance\n18/01/2023 || || 250.00 || 650.00\n14/01/2023 || 100.00 || || 900.00")
+      expect { account_history.view }.to output("date || credit || debit || balance\n18/01/2023 || || 250.00 || 650.00\n14/01/2023 || 100.00 || || 900.00\n").to_stdout
     end
   end
 
@@ -52,11 +49,13 @@ describe AccountHistory do
 
     it 'initializes an instance of Transaction' do
       expect(transaction_class).to receive(:new)
+
       account_history.add_transaction(Date.parse('14/01/2023'), 100.0, 100.0, transaction_class)
     end
 
     it 'adds the Transaction instance to the transactions array' do
       transactions_arr = account_history.add_transaction(Date.parse('14/01/2023'), 100.0, 100.0, transaction_class)
+      
       expect(transactions_arr).to be_an_instance_of(Array)
       expect(transactions_arr).to include('transaction instance')
     end
